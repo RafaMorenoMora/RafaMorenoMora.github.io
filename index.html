@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iSweetHome | Tu Hogar, Tu Control</title>
+    <style>
+        :root {
+            /* Paleta de colores corporativos extraídos del logo y diseño */
+            --teal: #40a098;
+            --teal-dark: #2a8a82;
+            --brown-text: #5c3a21;
+            --brown-bg: #4f3422;
+            --off-white: #f5f1e9;
+            --light-bg: #faf7f2;
+            --pure-white: #ffffff;
+            --gray-text: #606060;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--light-bg);
+            color: var(--brown-text);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Cabecera / Navegación */
+        header {
+            background-color: var(--light-bg);
+            padding: 1.2rem 8%;
+            border-bottom: 3px solid var(--teal);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            color: var(--teal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 0.75rem;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--brown-text);
+        }
+
+        /* Menú Hamburguesa (visible en la imagen) */
+        .menu-toggle {
+            display: block;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .bar {
+            width: 25px;
+            height: 3px;
+            background-color: var(--brown-text);
+            margin: 4px 0;
+        }
+
+        /* Sección Hero */
+        .hero {
+            background-color: var(--off-white);
+            text-align: center;
+            padding: 5rem 10% 4rem;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            line-height: 1.15;
+            margin-bottom: 1rem;
+            color: var(--brown-text);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray-text);
+            margin-bottom: 2.5rem;
+        }
+
+        /* Botones estilo diseño */
+        .btn {
+            display: inline-block;
+            background-color: var(--teal);
+            color: var(--pure-white);
+            padding: 0.9rem 2.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 10px rgba(64, 160, 152, 0.2);
+        }
+
+        /* Sección Servicios */
+        .services {
+            background-color: var(--pure-white);
+            padding: 4rem 8% 5rem;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--brown-text);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .card {
+            background: var(--pure-white);
+            padding: 2rem;
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+        }
+
+        .card:hover {
+            border-color: var(--teal);
+        }
+
+        .service-icon {
+            color: var(--teal);
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card h3 {
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.5rem;
+            color: var(--brown-text);
+        }
+
+        /* Pie de página */
+        footer {
+            background-color: var(--brown-bg);
+            color: var(--off-white);
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.85rem;
+        }
+
+        /* Media Queries básicas */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            header { padding: 1rem 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" class="logo-container">
+            <div class="logo-icon">
+                <!-- Icono vectorial inspirado en la casa del logotipo -->
+                <svg viewBox="0 0 24 24" width="28" height="28" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+            </div>
+            <span class="logo-text">iSweetHome</span>
+        </a>
+        <div class="menu-toggle">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>iSweetHome | Tu Hogar, Tu Control</h1>
+        <p>Domótica Inteligente y Soluciones de Control Total</p>
+        <a href="#contacto" class="btn">SABER MÁS</a>
+    </section>
+
+    <section class="services">
+        <h2 class="section-title">Nuestros Servicios</h2>
+        <div class="grid">
+            <div class="card">
+                <div class="service-icon">💡</div>
+                <h3>ILUMINACIÓN INTELIGENTE</h3>
+            </div>
+            <div class="card">
+                <div class="service-icon">❄️</div>
+                <h3>CLIMATIZACIÓN EFICIENTE</h3>
+            </div>
+            <div class="card">
+                <div class="service-icon">🛡️</div>
+                <h3>SEGURIDAD AVANZADA</h3>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 iSweetHome — Alcoi, España. Todos los derechos reservados.
+    </footer>
+
+</body>
+</html>
