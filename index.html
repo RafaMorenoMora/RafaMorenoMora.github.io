@@ -203,4 +203,240 @@ footer p{
     transition:.3s;
 }
 
-.whatsapp
+.whatsapp-float:hover{
+    transform:scale(1.08);
+}
+
+.fade-up{
+    opacity:0;
+    transform:translateY(20px);
+    transition:.7s;
+}
+
+.fade-up.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+@media(max-width:768px){
+
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+
+    nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+
+    nav a{
+        margin:0;
+    }
+
+    .hero h1{
+        font-size:2.3rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="#" class="logo">🏠 iSweetHome</a>
+
+    <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#casos">Soluciones</a>
+        <a href="#ventajas">Ventajas</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <span class="badge">Domótica Inteligente • Seguridad • Eficiencia Energética</span>
+
+    <h1>Convierte tu hogar en una vivienda inteligente</h1>
+
+    <p>
+        Controla iluminación, climatización, persianas, seguridad y consumo energético
+        desde cualquier lugar. Más confort, más ahorro y más tranquilidad.
+    </p>
+
+    <a href="#contacto" class="btn">
+        Solicitar presupuesto
+    </a>
+</section>
+
+<section id="servicios">
+    <h2 class="section-title">Nuestros Servicios</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>💡 Iluminación Inteligente</h3>
+            <p>
+                Automatiza encendido, apagado y regulación de luces
+                desde tu móvil o mediante comandos de voz.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🌡️ Climatización</h3>
+            <p>
+                Gestiona calefacción y aire acondicionado para
+                mejorar el confort y reducir el consumo.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🔒 Seguridad</h3>
+            <p>
+                Cámaras, sensores, alarmas y notificaciones
+                en tiempo real para proteger tu vivienda.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="casos">
+    <h2 class="section-title">Soluciones para tu Hogar</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>🏡 Casa conectada</h3>
+            <p>
+                Todo tu hogar integrado en una única plataforma.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🎛️ Control centralizado</h3>
+            <p>
+                Gestiona dispositivos desde smartphone, tablet o voz.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>⚡ Gestión energética</h3>
+            <p>
+                Reduce costes optimizando automáticamente consumos.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section id="ventajas">
+    <h2 class="section-title">¿Por qué elegir iSweetHome?</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <h3>⚡ Ahorro Energético</h3>
+            <p>
+                Automatiza consumos y reduce tu factura eléctrica.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>📱 Control Remoto</h3>
+            <p>
+                Accede a tu hogar desde cualquier lugar.
+            </p>
+        </div>
+
+        <div class="card">
+            <h3>🔒 Máxima Seguridad</h3>
+            <p>
+                Monitorización constante y avisos inmediatos.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Opiniones de Clientes</h2>
+
+    <div class="grid">
+
+        <div class="card">
+            <p>
+                "Ahora controlo toda la vivienda desde el móvil y he reducido notablemente el consumo."
+            </p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ María G.</strong>
+        </div>
+
+        <div class="card">
+            <p>
+                "Una instalación rápida y muy profesional. El sistema es muy intuitivo."
+            </p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ Javier R.</strong>
+        </div>
+
+        <div class="card">
+            <p>
+                "La automatización de luces y climatización nos ha dado una comodidad increíble."
+            </p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ Laura M.</strong>
+        </div>
+
+    </div>
+</section>
+
+<section id="contacto" class="cta">
+
+    <h2 class="section-title">Solicita Información</h2>
+
+    <p>
+        Cuéntanos tu proyecto y te ayudaremos a encontrar la solución de domótica más adecuada para tu hogar.
+    </p>
+
+    <a href="https://wa.me/34666819078" class="btn" target="_blank">
+        Contactar por WhatsApp
+    </a>
+
+</section>
+
+<footer>
+    <p>
+        © 2026 iSweetHome · Domótica Inteligente y Automatización del Hogar
+    </p>
+</footer>
+
+<a
+href="https://wa.me/34666819078"
+class="whatsapp-float"
+target="_blank"
+aria-label="WhatsApp">
+💬
+</a>
+
+<script>
+const elements = document.querySelectorAll('.card');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add('visible');
+        }
+    });
+});
+
+elements.forEach(el=>{
+    el.classList.add('fade-up');
+    observer.observe(el);
+});
+</script>
+
+</body>
+</html>
