@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>iSweetHome | Domótica Inteligente y Control Total</title>
+
+<!-- Favicon corporativo -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg viewBox='0 0 100 100' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 45 L50 14 L64 25.5 V17 H73 V33 L88 45 H79 L50 21.5 L21 45 H12 Z' fill='%232a8a82'/%3E%3Cpath d='M23 49 H31 V79 H41 C45.5 79 47 76.5 47 71.5 V48 H55 V71.5 C55 81.5 49.5 87 40.5 87 H23 V49 Z' fill='%232a8a82'/%3E%3Ccircle cx='51' cy='39' r='4.5' fill='%232a8a82'/%3E%3Cpath d='M69 49 H77 V87 H69 V49 Z' fill='%232a8a82'/%3E%3C/svg%3E">
+
+<meta name="description" content="Especialistas en domótica, automatización del hogar, seguridad inteligente y eficiencia energética.">
+
+<style>
+:root{
+    --bg:#fcfbfa;
+    --card:#ffffff;
+    --teal:#2a8a82;
+    --teal-hover:#23726b;
+    --brown:#5c3a21;
+    --bone:#f5f2eb;
+    --text:#2d3748;
+    --muted:#64748b;
+    --border:#e2e8f0;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 8%;
+    background:rgba(252,251,250,.95);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:1.6rem;
+    font-weight:700;
+    color:var(--brown);
+    text-decoration:none;
+}
+
+nav a{
+    text-decoration:none;
+    color:var(--muted);
+    margin-left:24px;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav a:hover{
+    color:var(--teal);
+}
+
+/* SECCIÓN HERO CON FONDO */
+.hero{
+    position: relative;
+    max-width: 100%;
+    margin: auto;
+    padding: 130px 8% 110px;
+    text-align: center;
+    background-image: url('fondo-domotica.jpg');
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(252, 251, 250, 0.88);
+    z-index: 1;
+}
+
+.hero > * {
+    position: relative;
+    z-index: 2;
+}
+
+.badge{
+    display:inline-block;
+    padding:8px 16px;
+    background:rgba(42,138,130,.15);
+    color:var(--teal);
+    border-radius:30px;
+    font-size:.9rem;
+    font-weight:600;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:3.4rem;
+    line-height:1.1;
+    color:var(--brown);
+    margin-bottom:25px;
+}
+
+.hero p{
+    font-size:1.2rem;
+    color:var(--muted);
+    max-width:750px;
+    margin:auto;
+    margin-bottom:35px;
+}
+
+.btn{
+    display:inline-block;
+    text-decoration:none;
+    background:var(--teal);
+    color:white;
+    padding:15px 32px;
+    border-radius:8px;
+    font-weight:600;
+    transition:.3s;
+    box-shadow:0 5px 15px rgba(42,138,130,.25);
+}
+
+.btn:hover{
+    background:var(--teal-hover);
+    transform:translateY(-2px);
+}
+
+section{
+    padding:80px 8%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:50px;
+    color:var(--brown);
+    font-size:2rem;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:24px;
+}
+
+.card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:30px;
+    transition:.3s;
+    box-shadow:0 2px 8px rgba(0,0,0,.03);
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+}
+
+.card h3{
+    margin-bottom:15px;
+    color:var(--brown);
+}
+
+.card p{
+    color:var(--muted);
+}
+
+/* TARJETAS DE IMAGEN ADAPTATIVAS CON REVELADO AL PASAR EL RATÓN */
+.card-img-iluminacion,
+.card-img-climatizacion,
+.card-img-seguridad,
+.card-img-casa,
+.card-bg-image,
+.card-img-energia {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    aspect-ratio: 1 / 1;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.card-img-iluminacion { background-image: url('iluminacion-inteligente.jpg'); }
+.card-img-climatizacion { background-image: url('climatizacion.jpg'); }
+.card-img-seguridad { background-image: url('seguridad.jpg'); }
+.card-img-casa { background-image: url('casa-conectada.jpg'); }
+.card-bg-image { background-image: url('control-centralizado.jpg'); }
+.card-img-energia { background-image: url('gestion-energetica.jpg'); }
+
+.card-overlay {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    color: var(--bone);
+}
+
+.card-overlay h3 {
+    color: var(--bone);
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+}
+
+.card-overlay p {
+    color: var(--bone);
+    font-size: 0.98rem;
+    line-height: 1.5;
+}
+
+[class*="card-img-"]:hover,
+.card-bg-image:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+[class*="card-img-"]::before,
+.card-bg-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.72);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+[class*="card-img-"]:hover::before,
+.card-bg-image:hover::before,
+[class*="card-img-"]:active::before,
+.card-bg-image:active::before {
+    opacity: 1;
+}
+
+[class*="card-img-"]:hover .card-overlay,
+.card-bg-image:hover .card-overlay,
+[class*="card-img-"]:active .card-overlay,
+.card-bg-image:active .card-overlay {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* SIMULADOR INTERACTIVO */
+.demo-section {
+    background: #f4f1ec;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+.dashboard-mockup {
+    max-width: 950px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+    overflow: hidden;
+}
+
+.dash-topbar {
+    background: var(--brown);
+    color: #fff;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.dash-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.dash-status {
+    display: flex;
+    gap: 16px;
+    font-size: 0.9rem;
+    background: rgba(255,255,255,0.12);
+    padding: 6px 14px;
+    border-radius: 20px;
+}
+
+.dash-scenes {
+    padding: 18px 24px;
+    background: #fcfbfa;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.dash-scenes span {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--muted);
+    margin-right: 6px;
+}
+
+.scene-btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--brown);
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.scene-btn:hover {
+    border-color: var(--teal);
+    color: var(--teal);
+}
+
+.dash-grid {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 18px;
+}
+
+.device-tile {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    background: #fcfbfa;
+    transition: 0.25s;
+    user-select: none;
+}
+
+.device-tile.active {
+    background: rgba(42, 138, 130, 0.08);
+    border-color: var(--teal);
+}
+
+.tile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.tile-icon {
+    font-size: 1.6rem;
+}
+
+.tile-state {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: #e2e8f0;
+    color: var(--muted);
+}
+
+.device-tile.active .tile-state {
+    background: var(--teal);
+    color: #fff;
+}
+
+.tile-name {
+    font-weight: 700;
+    color: var(--brown);
+    margin-bottom: 4px;
+}
+
+.tile-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+}
+
+.tile-controls {
+    margin-top: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.tile-controls input[type="range"] {
+    width: 100%;
+    accent-color: var(--teal);
+    cursor: pointer;
+}
+
+.mini-btn {
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--brown);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.mini-btn:hover {
+    background: var(--teal);
+    color: #fff;
+    border-color: var(--teal);
+}
+
+.alarm-armed {
+    background: rgba(220, 38, 38, 0.08) !important;
+    border-color: #dc2626 !important;
+}
+
+.alarm-armed .tile-state {
+    background: #dc2626 !important;
+    color: #fff !important;
+}
+
+.cta{
+    text-align:center;
+    background:white;
+    border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border);
+}
+
+.cta p{
+    max-width:700px;
+    margin:20px auto 35px;
+    color:var(--muted);
+}
+
+footer{
+    background:#ffffff;
+    text-align:center;
+    padding:40px 20px;
+    border-top:1px solid var(--border);
+}
+
+footer p{
+    color:var(--muted);
+}
+
+/* CONTADOR DE VISITAS */
+.visit-counter {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 6px 16px;
+    background: rgba(42, 138, 130, 0.08);
+    border: 1px solid rgba(42, 138, 130, 0.25);
+    border-radius: 20px;
+    font-size: 0.88rem;
+    color: var(--brown);
+    font-weight: 600;
+}
+
+.visit-counter span.count-num {
+    color: var(--teal);
+    font-weight: 700;
+}
+
+.whatsapp-float{
+    position:fixed;
+    right:25px;
+    bottom:25px;
+    width:65px;
+    height:65px;
+    background:#25D366;
+    color:white;
+    border-radius:50%;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    box-shadow:0 5px 15px rgba(0,0,0,.25);
+    z-index:9999;
+    transition:.3s;
+}
+
+.whatsapp-float:hover{
+    transform:scale(1.08);
+}
+
+@media(max-width:768px){
+    header{
+        flex-direction:column;
+        gap:15px;
+    }
+    nav{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:15px;
+    }
+    nav a{
+        margin:0;
+    }
+    .hero h1{
+        font-size:2.3rem;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <a href="#" class="logo">
+        <svg viewBox="0 0 100 100" width="38" height="38" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 45 L50 14 L64 25.5 V17 H73 V33 L88 45 H79 L50 21.5 L21 45 H12 Z" fill="#2a8a82"/>
+            <path d="M23 49 H31 V79 H41 C45.5 79 47 76.5 47 71.5 V48 H55 V71.5 C55 81.5 49.5 87 40.5 87 H23 V49 Z" fill="#2a8a82"/>
+            <circle cx="51" cy="39" r="4.5" fill="#2a8a82"/>
+            <path d="M69 49 H77 V87 H69 V49 Z" fill="#2a8a82"/>
+        </svg>
+        <span>iSweetHome</span>
+    </a>
+
+    <nav>
+        <a href="#servicios">Servicios</a>
+        <a href="#casos">Soluciones</a>
+        <a href="#demo">Simulador</a>
+        <a href="#ventajas">Ventajas</a>
+        <a href="#contacto">Contacto</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <span class="badge">Domótica Inteligente • Seguridad • Eficiencia Energética</span>
+
+    <h1>Convierte tu hogar en una vivienda inteligente</h1>
+
+    <p>
+        Controla iluminación, climatización, persianas, seguridad y consumo energético
+        desde cualquier lugar. Más confort, más ahorro y más tranquilidad.
+    </p>
+
+    <a href="#contacto" class="btn">
+        Solicitar presupuesto
+    </a>
+</section>
+
+<section id="servicios">
+    <h2 class="section-title">Nuestros Servicios</h2>
+
+    <div class="grid">
+        <div class="card-img-iluminacion">
+            <div class="card-overlay">
+                <h3>💡 Iluminación Inteligente</h3>
+                <p>Automatiza encendido, apagado, escenas y regulación de luces desde el móvil o por voz.</p>
+            </div>
+        </div>
+        <div class="card-img-climatizacion">
+            <div class="card-overlay">
+                <h3>🌡️ Climatización</h3>
+                <p>Gestiona calefacción y aire acondicionado con precisión para máximo confort y ahorro.</p>
+            </div>
+        </div>
+        <div class="card-img-seguridad">
+            <div class="card-overlay">
+                <h3>🔒 Seguridad</h3>
+                <p>Sensores, alarmas, cámaras y avisos inmediatos en tiempo real para proteger tu hogar.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="casos">
+    <h2 class="section-title">Soluciones para tu Hogar</h2>
+
+    <div class="grid">
+        <div class="card-img-casa">
+            <div class="card-overlay">
+                <h3>🏡 Casa conectada</h3>
+                <p>Todos los dispositivos de tu vivienda integrados en un sistema estable y sin esperas.</p>
+            </div>
+        </div>
+        <div class="card-bg-image">
+            <div class="card-overlay">
+                <h3>🎛️ Control centralizado</h3>
+                <p>Gestiona toda tu casa desde un único panel en smartphone, tablet o pantalla de pared.</p>
+            </div>
+        </div>
+        <div class="card-img-energia">
+            <div class="card-overlay">
+                <h3>⚡ Gestión energética</h3>
+                <p>Monitoriza consumos en vivo y optimiza el gasto eléctrico de forma automática.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SECCIÓN SIMULADOR INTERACTIVO -->
+<section id="demo" class="demo-section">
+    <h2 class="section-title">Prueba nuestro Panel de Control</h2>
+    <p style="text-align:center; color:var(--muted); max-width:650px; margin:-30px auto 40px;">
+        Interactúa con esta simulación en vivo para descubrir lo fácil que es gestionar tu vivienda desde una única pantalla.
+    </p>
+
+    <div class="dashboard-mockup">
+        <div class="dash-topbar">
+            <div class="dash-title">
+                <span>🏠</span>
+                <span>iSweetHome OS · Vivienda Principal</span>
+            </div>
+            <div class="dash-status">
+                <span id="dash-temp-ext">🌡️ 21.5 °C</span>
+                <span id="dash-power">⚡ 145 W</span>
+            </div>
+        </div>
+
+        <div class="dash-scenes">
+            <span>Escenas rápidas:</span>
+            <button class="scene-btn" onclick="applyScene('dia')">☀️ Buenos días</button>
+            <button class="scene-btn" onclick="applyScene('cine')">🎬 Modo Cine</button>
+            <button class="scene-btn" onclick="applyScene('fuera')">🔒 Salir de casa</button>
+        </div>
+
+        <div class="dash-grid">
+            <!-- Luz Salón -->
+            <div class="device-tile active" id="tile-luz-salon" onclick="toggleLight('salon')" style="cursor:pointer;">
+                <div class="tile-header">
+                    <span class="tile-icon">💡</span>
+                    <span class="tile-state" id="state-luz-salon">Encendida</span>
+                </div>
+                <div class="tile-name">Iluminación Salón</div>
+                <div class="tile-sub" id="sub-luz-salon">Regulable · 80% intensidad</div>
+                <div class="tile-controls" onclick="event.stopPropagation()">
+                    <input type="range" id="slider-luz-salon" min="0" max="100" value="80" oninput="dimLight('salon', this.value)">
+                </div>
+            </div>
+
+            <!-- Luz Cocina -->
+            <div class="device-tile" id="tile-luz-cocina" onclick="toggleLight('cocina')" style="cursor:pointer;">
+                <div class="tile-header">
+                    <span class="tile-icon">🔦</span>
+                    <span class="tile-state" id="state-luz-cocina">Apagada</span>
+                </div>
+                <div class="tile-name">Tira LED Cocina</div>
+                <div class="tile-sub">Encendido automático por presencia</div>
+            </div>
+
+            <!-- Persiana Salón -->
+            <div class="device-tile active" id="tile-persiana">
+                <div class="tile-header">
+                    <span class="tile-icon">🪟</span>
+                    <span class="tile-state" id="state-persiana">Abierta 100%</span>
+                </div>
+                <div class="tile-name">Persiana Motorizada</div>
+                <div class="tile-sub">Control de posición exacto</div>
+                <div class="tile-controls">
+                    <button class="mini-btn" onclick="setBlind(0)" title="Cerrar">⬇️</button>
+                    <input type="range" id="slider-persiana" min="0" max="100" value="100" oninput="setBlind(this.value)">
+                    <button class="mini-btn" onclick="setBlind(100)" title="Abrir">⬆️</button>
+                </div>
+            </div>
+
+            <!-- Climatización -->
+            <div class="device-tile active" id="tile-clima">
+                <div class="tile-header">
+                    <span class="tile-icon">❄️</span>
+                    <span class="tile-state" id="state-clima">22.0 °C</span>
+                </div>
+                <div class="tile-name">Climatización Salón</div>
+                <div class="tile-sub" id="sub-clima">Modo Auto · Confort activo</div>
+                <div class="tile-controls" style="justify-content:space-between;">
+                    <button class="mini-btn" onclick="changeTemp(-0.5)">-</button>
+                    <strong id="target-temp" style="color:var(--brown);">22.0 °C</strong>
+                    <button class="mini-btn" onclick="changeTemp(0.5)">+</button>
+                </div>
+            </div>
+
+            <!-- Alarma -->
+            <div class="device-tile" id="tile-alarma" onclick="toggleAlarm()" style="cursor:pointer;">
+                <div class="tile-header">
+                    <span class="tile-icon" id="icon-alarma">🔓</span>
+                    <span class="tile-state" id="state-alarma">Desarmada</span>
+                </div>
+                <div class="tile-name">Seguridad y Sensores</div>
+                <div class="tile-sub" id="sub-alarma">Puertas y ventanas cerradas</div>
+            </div>
+
+            <!-- Gestión Energética -->
+            <div class="device-tile active" id="tile-energia" onclick="togglePlug()" style="cursor:pointer;">
+                <div class="tile-header">
+                    <span class="tile-icon">🔌</span>
+                    <span class="tile-state" id="state-energia">Activo</span>
+                </div>
+                <div class="tile-name">Gestión Energética</div>
+                <div class="tile-sub" id="sub-energia">Consumo optimizado en tiempo real</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="ventajas">
+    <h2 class="section-title">¿Por qué elegir iSweetHome?</h2>
+
+    <div class="grid">
+        <div class="card">
+            <h3>⚡ Ahorro Energético</h3>
+            <p>Automatiza consumos y reduce tu factura eléctrica.</p>
+        </div>
+        <div class="card">
+            <h3>📱 Control Remoto</h3>
+            <p>Accede a tu hogar desde cualquier lugar.</p>
+        </div>
+        <div class="card">
+            <h3>🔒 Máxima Seguridad</h3>
+            <p>Monitorización constante y avisos inmediatos.</p>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Opiniones de Clientes</h2>
+
+    <div class="grid">
+        <div class="card">
+            <p>"Ahora controlo toda la vivienda desde el móvil y he reducido notablemente el consumo."</p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ Paola M.</strong>
+        </div>
+        <div class="card">
+            <p>"Una instalación rápida y muy profesional. El sistema es muy intuitivo."</p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ Rafa M.</strong>
+        </div>
+        <div class="card">
+            <p>"La automatización de luces y climatización nos ha dado una comodidad increíble."</p>
+            <br>
+            <strong>⭐⭐⭐⭐⭐ Toni G.</strong>
+        </div>
+    </div>
+</section>
+
+<section id="contacto" class="cta">
+    <h2 class="section-title">Solicita Información</h2>
+    <p>Cuéntanos tu proyecto y te ayudaremos a encontrar la solución de domótica más adecuada para tu hogar.</p>
+    <a href="https://wa.me/34666819078" class="btn" target="_blank">Contactar por WhatsApp</a>
+</section>
+
+<footer>
+    <p>© 2026 iSweetHome · Domótica Inteligente y Automatización del Hogar</p>
+    <div class="visit-counter">
+        <span>👁️ Visitas totales:</span>
+        <span class="count-num" id="visit-count">...</span>
+    </div>
+</footer>
+
+<a href="https://wa.me/34666819078" class="whatsapp-float" target="_blank" aria-label="WhatsApp">💬</a>
+
+<script>
+let state = {
+    salon: 80,
+    cocina: false,
+    persiana: 100,
+    temp: 22.0,
+    alarma: false,
+    enchufe: true
+};
+
+function updatePower() {
+    let watts = 45;
+    watts += Math.round((state.salon / 100) * 60);
+    if (state.cocina) watts += 35;
+    if (state.enchufe) watts += 52;
+    if (state.temp < 21 || state.temp > 23) watts += 320;
+    document.getElementById('dash-power').textContent = `⚡ ${watts} W`;
+}
+
+function toggleLight(room) {
+    if (room === 'salon') {
+        state.salon = state.salon > 0 ? 0 : 80;
+        document.getElementById('slider-luz-salon').value = state.salon;
+        dimLight('salon', state.salon);
+    } else if (room === 'cocina') {
+        state.cocina = !state.cocina;
+        const tile = document.getElementById('tile-luz-cocina');
+        const badge = document.getElementById('state-luz-cocina');
+        tile.classList.toggle('active', state.cocina);
+        badge.textContent = state.cocina ? 'Encendida' : 'Apagada';
+        updatePower();
+    }
+}
+
+function dimLight(room, val) {
+    val = parseInt(val);
+    state.salon = val;
+    const tile = document.getElementById('tile-luz-salon');
+    const badge = document.getElementById('state-luz-salon');
+    const sub = document.getElementById('sub-luz-salon');
+    if (val > 0) {
+        tile.classList.add('active');
+        badge.textContent = 'Encendida';
+        sub.textContent = `Regulable · ${val}% intensidad`;
+    } else {
+        tile.classList.remove('active');
+        badge.textContent = 'Apagada';
+        sub.textContent = 'Regulable · 0% intensidad';
+    }
+    updatePower();
+}
+
+function setBlind(val) {
+    val = parseInt(val);
+    state.persiana = val;
+    document.getElementById('slider-persiana').value = val;
+    const tile = document.getElementById('tile-persiana');
+    const badge = document.getElementById('state-persiana');
+    if (val === 0) {
+        tile.classList.remove('active');
+        badge.textContent = 'Cerrada';
+    } else {
+        tile.classList.add('active');
+        badge.textContent = `Abierta ${val}%`;
+    }
+}
+
+function changeTemp(delta) {
+    state.temp = Math.min(28, Math.max(17, state.temp + delta));
+    const formatted = state.temp.toFixed(1) + ' °C';
+    document.getElementById('state-clima').textContent = formatted;
+    document.getElementById('target-temp').textContent = formatted;
+    updatePower();
+}
+
+function toggleAlarm() {
+    state.alarma = !state.alarma;
+    const tile = document.getElementById('tile-alarma');
+    const badge = document.getElementById('state-alarma');
+    const icon = document.getElementById('icon-alarma');
+    const sub = document.getElementById('sub-alarma');
+    tile.classList.toggle('alarm-armed', state.alarma);
+    badge.textContent = state.alarma ? 'Armada Total' : 'Desarmada';
+    icon.textContent = state.alarma ? '🛡️' : '🔓';
+    sub.textContent = state.alarma ? 'Vigilancia activa · Notificaciones ON' : 'Puertas y ventanas cerradas';
+}
+
+function togglePlug() {
+    state.enchufe = !state.enchufe;
+    const tile = document.getElementById('tile-energia');
+    const badge = document.getElementById('state-energia');
+    tile.classList.toggle('active', state.enchufe);
+    badge.textContent = state.enchufe ? 'Activo' : 'En espera';
+    updatePower();
+}
+
+function applyScene(scene) {
+    if (scene === 'dia') {
+        dimLight('salon', 80);
+        if (!state.cocina) toggleLight('cocina');
+        setBlind(100);
+        if (state.alarma) toggleAlarm();
+    } else if (scene === 'cine') {
+        dimLight('salon', 20);
+        if (state.cocina) toggleLight('cocina');
+        setBlind(0);
+    } else if (scene === 'fuera') {
+        dimLight('salon', 0);
+        if (state.cocina) toggleLight('cocina');
+        setBlind(0);
+        if (!state.alarma) toggleAlarm();
+    }
+}
+
+/* CONTADOR DE VISITAS GLOBAL */
+(function() {
+    const countEl = document.getElementById('visit-count');
+    fetch('https://api.counterapi.dev/v1/isweethome-alcoy/visitas/up')
+        .then(res => res.json())
+        .then(data => {
+            if (data && typeof data.count === 'number') {
+                countEl.textContent = data.count.toLocaleString('es-ES');
+            } else {
+                countEl.textContent = '1';
+            }
+        })
+        .catch(() => {
+            let localVisits = parseInt(localStorage.getItem('isweethome_visits') || '0') + 1;
+            localStorage.setItem('isweethome_visits', localVisits);
+            countEl.textContent = localVisits.toLocaleString('es-ES');
+        });
+})();
+</script>
+
+</body>
+</html>
